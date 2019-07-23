@@ -100,6 +100,7 @@ form {
     font-size: 1em;
         -webkit-appearance: none;
     border: 1px solid #a2a2a2;
+    max-width: 100%;
   }
 }
 </style>
