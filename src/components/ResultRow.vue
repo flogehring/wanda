@@ -2,7 +2,8 @@
 <li class="result-row row">
   <span class="threshold">{{ this.threshold }}h</span>
   <span class="absoluteTime">{{ absoluteTime }}</span>
-  <span class="relativeTime">noch {{ relativeTime }}</span>
+  <!--<span class="relativeTime">noch {{ relativeTime }}</span>-->
+  
 </li>
 </template>
 
@@ -33,28 +34,27 @@ export default {
   },
   computed: {
     absoluteTime: function () {
-      return this.calculateAbsoluteTime(this.wannda, this.threshold, this.wielangweg)
+      let thresholdNumber = Number(this.threshold);
+      let thresholdInMinutes = 60 * thresholdNumber;
+      return this.calculateAbsoluteTime(this.wannda, thresholdInMinutes, this.wielangweg)
     },
     relativeTime: function () {
       return this.calculateRelativeTimeFromNow();
     }
   },
   methods: {
-    calculateAbsoluteTime: function (wanndaString, thresholdString, breakString) {
+    calculateAbsoluteTime: function (wanndaString, thresholdInMinutes, breakString) {
       let timeWannda = moment.utc(wanndaString, 'HH:mm');
-      var timeThreshold = moment.utc(thresholdString, 'HH:mm');
-
+    
       let timeBreak = moment.utc(breakString, 'HH:mm');
       let difference = timeWannda
-        .add(timeThreshold.hours(), 'hours')
-        .add(timeThreshold.minutes(), 'minutes')
+        .add(thresholdInMinutes, 'minutes')
         .add(timeBreak.hours(), 'hours')
         .add(timeBreak.minutes(), 'minutes');
       this.timeUntil = difference;
       return difference.format('HH:mm');
     },
     calculateRelativeTimeFromNow: function () {
-      // return this.timeUntil.fromNow();
       let now = new moment();
       let minutes = now.diff(this.timeUntil, 'minutes');
       let hours = Math.floor(minutes / 60);
