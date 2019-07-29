@@ -2,7 +2,7 @@
 <li class="result-row row">
   <span class="threshold">{{ this.threshold }}h</span>
   <span class="absoluteTime">{{ absoluteTime }}</span>
-  <span class="relativeTime">noch {{ relativeTime }}</span>
+  <span class="relativeTime">{{ relativeTime }}</span>
 
 </li>
 </template>
@@ -59,7 +59,7 @@ export default {
       let minutes = Math.abs(now.diff(timeUntil, 'minutes'));
       let hours = Math.floor(minutes / 60);
       let leftoverMinutes = minutes - (hours * 60);
-      let prefix = isOverHours ? '' : '-';
+      let prefix = isOverHours ? 'noch ' : '+ ';
       return prefix + hours + ':' + leftoverMinutes.pad(2);
     },
     calculateTimeUntil: function (wanndaString, thresholdInMinutes, breakString) {
