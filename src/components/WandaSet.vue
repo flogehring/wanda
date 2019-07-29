@@ -28,6 +28,7 @@
     <a href="/06:10/00:30/">/06:10/00:30/</a>
     <a href="/07:30/00:45/">/07:30/00:45/</a>
     <a href="/08:30/00:30/">/08:30/00:30/</a>
+    <a href="/"> /#vergissmeinnicht</a>
   </div>
 </div>
 </template>
@@ -100,7 +101,7 @@ export default {
       this.persist();
     },
     persist: function () {
-      localStorage.wanndaInner = this.wannda;
+      localStorage.wannda = this.wannda;
       localStorage.wielangweg = this.wielangweg;
     },
     forceRerender: function() {
