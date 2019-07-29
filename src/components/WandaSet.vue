@@ -59,7 +59,7 @@ export default {
     return {
       wannda: this.wanndaProp,
       wielangweg: this.wielangwegProp,
-      now: new moment(),
+      now: moment(),
     };
   },
 
@@ -107,7 +107,7 @@ export default {
     forceRerender: function() {
       // Update something to force a refresh without overhead
       // https://michaelnthiessen.com/force-re-render
-      this.now = new moment();
+      this.now = moment();
 
     }
   

@@ -59,12 +59,12 @@ export default {
       let minutes = Math.abs(now.diff(timeUntil, 'minutes'));
       let hours = Math.floor(minutes / 60);
       let leftoverMinutes = minutes - (hours * 60);
-      let prefix = isOverHours ? 'noch ' : '+ ';
+      let prefix = isOverHours ? '+ ' : 'noch ';
       return prefix + hours + ':' + leftoverMinutes.pad(2);
     },
     calculateTimeUntil: function (wanndaString, thresholdInMinutes, breakString) {
-      let timeWannda = moment.utc(wanndaString, 'HH:mm');
-      let timeBreak = moment.utc(breakString, 'HH:mm');
+      let timeWannda = moment(wanndaString, 'HH:mm');
+      let timeBreak = moment(breakString, 'HH:mm');
       const timeUntil = timeWannda
         .add(thresholdInMinutes, 'minutes')
         .add(timeBreak.hours(), 'hours')
