@@ -55,15 +55,17 @@ export default {
     calculateRelativeTimeFromNow: function (wanndaString, thresholdInMinutes, breakString) {
       let timeUntil = this.calculateTimeUntil(wanndaString, thresholdInMinutes, breakString);
       let now = this.jetzt;
+      let isOverHours = timeUntil.isBefore(now);
       let minutes = Math.abs(now.diff(timeUntil, 'minutes'));
       let hours = Math.floor(minutes / 60);
       let leftoverMinutes = minutes - (hours * 60);
-      return hours + ':' + leftoverMinutes.pad(2);
+      let prefix = isOverHours ? '' : '-';
+      return prefix + hours + ':' + leftoverMinutes.pad(2);
     },
     calculateTimeUntil: function (wanndaString, thresholdInMinutes, breakString) {
       let timeWannda = moment.utc(wanndaString, 'HH:mm');
       let timeBreak = moment.utc(breakString, 'HH:mm');
-      let timeUntil = timeWannda
+      const timeUntil = timeWannda
         .add(thresholdInMinutes, 'minutes')
         .add(timeBreak.hours(), 'hours')
         .add(timeBreak.minutes(), 'minutes');

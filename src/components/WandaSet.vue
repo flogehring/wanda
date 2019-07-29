@@ -132,6 +132,7 @@ body {
 form {
   margin: 0 auto;
   max-width: $container-max-width;
+  
 }
 
 .table-wrapper {
@@ -159,6 +160,7 @@ form {
   input[type="text"] {
     display: block;
     font-size: 1em;
+    width: 100%;
   }
  
 }
