@@ -4,13 +4,13 @@
     <div class="row">
       <label for="wannda">
         Wann da?
-        <input type="text" id="wannda" :value="wannda" @input="wanndaUpdated" />
+        <input type="text" id="wannda" :value="wannda" @input="wanndaUpdated" @focus="selectAll"/>
       </label>
     </div>
     <div class="row">
       <label for="wielangweg">
         Wie lang weg?
-        <input type="text" id="wielangweg" :value="wielangweg" @input="breakUpdated" />
+        <input type="text" id="wielangweg" :value="wielangweg" @input="breakUpdated" @focus="selectAll"/>
       </label>
     </div>
   </form>
@@ -99,6 +99,11 @@ export default {
       let value = context.target.value;
       this.wielangweg = value;
       this.persist();
+    },
+    selectAll: function (context) {
+      let target = context.target;
+      // target.setSelectionRange(0, target.value.length+1);
+      target.select();
     },
     persist: function () {
       localStorage.wannda = this.wannda;
