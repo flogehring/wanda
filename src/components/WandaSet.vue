@@ -118,6 +118,10 @@ export default {
 <style lang="scss">
 $container-max-width: 18em;
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-size: 16px;
 }
