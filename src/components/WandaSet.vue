@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="disable-all">
   <form>
     <div class="row">
       <label for="wannda">
@@ -16,32 +16,74 @@
   </form>
   <div class="table-wrapper">
     <ul>
-      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="6.0" />
-      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="7.7" />
-      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="8.0" />
-      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="9.0" />
-      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="10.0" />
+      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="6.0" :jetzt="this.now"/>
+      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="7.7" :jetzt="this.now" class="main"/>
+      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="8.0" :jetzt="this.now" />
+      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="9.0" :jetzt="this.now" />
+      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="10.0" :jetzt="this.now" />
     </ul>
+  </div>
+
+   <div class="presets">
+    <a href="/06:10/00:30/">/06:10/00:30/</a>
+    <a href="/07:30/00:45/">/07:30/00:45/</a>
+    <a href="/08:30/00:30/">/08:30/00:30/</a>
   </div>
 </div>
 </template>
 
 <script>
 import Store from "../store/index.js";
+import moment from "moment";
 import ResultRow from "./ResultRow.vue";
 import {
   mapGetters
 } from "vuex";
 
 export default {
+
+  created: function() {
+
+      this.forceRerender();
+      this.timer = setInterval(this.forceRerender, 60000)
+
+  },
+
+  watch: {
+    // call again the method if the route changes
+    '$route': 'forceRerender'
+  },
+
   data: function () {
     return {
-      wannda: "08:00",
-      wielangweg: "00:30"
+      wannda: this.wanndaProp,
+      wielangweg: this.wielangwegProp,
+      now: new moment(),
     };
   },
 
-  props: {},
+  props: {
+    wanndaProp: {
+      type: String,
+      default: '07:00',
+    },
+    wielangwegProp: {
+      type: String,
+      default: '00:33',
+    }
+  },
+  mounted() {
+    if (localStorage.wannda && this.$route.params.wanndaProp === undefined) {
+      this.wannda = localStorage.wannda;
+      
+    }
+    if (localStorage.wielangweg && this.$route.params.wielangwegProp === undefined) {
+      this.wielangweg = localStorage.wielangweg;
+    }
+    if(this.$route.params.wanndaProp !== undefined) {
+      this.persist();
+    }
+  },
   components: {
     ResultRow
   },
@@ -49,26 +91,38 @@ export default {
   methods: {
     wanndaUpdated: function (context) {
       let value = context.target.value;
-
       this.wannda = value;
+      this.persist();
     },
     breakUpdated: function (context) {
       let value = context.target.value;
       this.wielangweg = value;
+      this.persist();
     },
+    persist: function () {
+      localStorage.wanndaInner = this.wannda;
+      localStorage.wielangweg = this.wielangweg;
+    },
+    forceRerender: function() {
+      // Update something to force a refresh without overhead
+      // https://michaelnthiessen.com/force-re-render
+      this.now = new moment();
+
+    }
+  
   }
 };
 </script>
 
 <style lang="scss">
 $container-max-width: 18em;
-* {
-  box-sizing: border-box;
-}
 
 body {
   font-size: 16px;
 }
+
+.disable-all{-webkit-touch-callout: none;  -webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+
 
 form {
   margin: 0 auto;
@@ -84,10 +138,9 @@ form {
     list-style: none;
     margin: 0;
     padding: 0;
-    
+
   }
 }
-
 
 .row {
   font-size: 1.5em;
@@ -101,9 +154,29 @@ form {
   input[type="text"] {
     display: block;
     font-size: 1em;
-        -webkit-appearance: none;
-    border: 1px solid #a2a2a2;
-    max-width: 100%;
+  }
+ 
+}
+
+.presets {
+  margin-top: 4em;
+  display: flex;
+  flex-direction: column;
+  max-width: 20em;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  margin: 0 auto;
+  a {
+    display: inline-block;
+    background: #666;
+    color: #fff;
+    padding: .4em 1em;
+    font-weight: bold;
+    border-radius: 1em;
+    margin: .5em;
+    font-size: 1.2em;
+
   }
 }
 </style>

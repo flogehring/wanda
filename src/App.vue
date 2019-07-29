@@ -1,7 +1,10 @@
 <template>
 <div id='app'>
   <h1>Wanda</h1>
-  <WandaSet />
+  <router-view />
+
+ 
+
 </div>
 </template>
 
@@ -25,6 +28,8 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+
 </style>
 
 <style lang="scss" scoped>

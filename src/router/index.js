@@ -8,23 +8,16 @@ Vue.use(Router);
 
 export default new Router({
   routes: [{
-    path: '/',
-    name: 'Wanda',
-    component: WandaSet,
-  },
-  {
-    path: '/about',
-    name: 'about',
-    template: '<p>about page</p>',
-    created() {
-      console.log('about created');
+      path: '/',
+      name: 'Wanda',
+      component: WandaSet,
     },
-  },
+    {
+      path: '/:wanndaProp/:wielangwegProp',
+      name: 'wannda',
+      component: WandaSet,
+      props: true,
+    },
   ],
+  mode: 'history',
 });
-
-function castRouteParams(route) {
-  return {
-    itemid: Number(route.params.itemid),
-  };
-}
