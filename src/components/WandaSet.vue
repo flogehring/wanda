@@ -28,7 +28,7 @@
     <a href="/06:10/00:30/">/06:10/00:30/</a>
     <a href="/07:30/00:45/">/07:30/00:45/</a>
     <a href="/08:30/00:30/">/08:30/00:30/</a>
-    <a href="/"> /#vergissmeinnicht</a>
+    <a href="/">Reset</a>
   </div>
 </div>
 </template>
@@ -174,6 +174,7 @@ form {
     color: #fff;
     padding: .4em 1em;
     font-weight: bold;
+    text-decoration: none;
     border-radius: 1em;
     margin: .5em;
     font-size: 1.2em;
