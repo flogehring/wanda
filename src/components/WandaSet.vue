@@ -1,7 +1,9 @@
 <template>
 <div class="disable-all">
   <StatusBackground :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="7.7" :jetzt="this.now" class="main" :showProgress="true"/>
+ 
   <form>
+  <h1>Wanda</h1>
     <div class="row">
       <label for="wannda">
         Wann da?
