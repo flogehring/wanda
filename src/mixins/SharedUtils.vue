@@ -7,8 +7,40 @@ import RelativeDateType from "./DateTypes.js";
 const locale = window.navigator.userLanguage || window.navigator.language;
 moment.locale(locale);
 
+Number.prototype.pad = function (size) {
+  var s = String(this);
+  while (s.length < (size || 2)) {
+    s = "0" + s;
+  }
+  return s;
+}
+
 export default {
   name: "SharedUtils",
+  computed: {
+    absoluteTime: function () {
+      let thresholdNumber = Number(this.threshold);
+      let thresholdInMinutes = 60 * thresholdNumber;
+      return this.calculateAbsoluteTime(this.wannda, thresholdInMinutes, this.wielangweg)
+    },
+    relativeTime: function () {
+      let thresholdNumber = Number(this.threshold);
+      let thresholdInMinutes = 60 * thresholdNumber;
+      return this.calculateRelativeTimeFromNow(this.wannda, thresholdInMinutes, this.wielangweg);
+    },
+
+    progress: function () {
+      let thresholdNumber = Number(this.threshold);
+      let thresholdInMinutes = 60 * thresholdNumber;
+      let progressNumber = this.calculateProgress(this.wannda, thresholdInMinutes, this.wielangweg);
+      return progressNumber;
+    },
+
+    progressPercent: function () {
+
+      return (Math.round(this.progress * 100)) + '%';
+    },
+  },
   methods: {
     uuidv4: function() {
       return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
@@ -126,6 +158,42 @@ export default {
       return moment(inputDate)
         .startOf("Day")
         .fromNow();
+    },
+
+    calculateAbsoluteTime: function (wanndaString, thresholdInMinutes, breakString) {
+      let timeUntil = this.calculateTimeUntil(wanndaString, thresholdInMinutes, breakString);
+      return timeUntil.format('HH:mm');
+    },
+
+    calculateRelativeTimeFromNow: function (wanndaString, thresholdInMinutes, breakString) {
+      let timeUntil = this.calculateTimeUntil(wanndaString, thresholdInMinutes, breakString);
+      let now = this.jetzt;
+      let minutes = Math.abs(now.diff(timeUntil, 'minutes'));
+      let hours = Math.floor(minutes / 60);
+      let leftoverMinutes = minutes - (hours * 60);
+      return hours + ':' + leftoverMinutes.pad(2);
+    },
+
+    calculateTimeUntil: function (wanndaString, thresholdInMinutes, breakString) {
+      let timeWannda = moment.utc(wanndaString, 'HH:mm');
+      let timeBreak = moment.utc(breakString, 'HH:mm');
+      let timeUntil = timeWannda
+        .add(thresholdInMinutes, 'minutes')
+        .add(timeBreak.hours(), 'hours')
+        .add(timeBreak.minutes(), 'minutes');
+      return timeUntil;
+    },
+    calculateProgress: function (wanndaString, thresholdInMinutes, breakString) {
+
+      let timeUntil = this.calculateTimeUntil(wanndaString, thresholdInMinutes, breakString);
+      let now = this.jetzt;
+      let minutesLeft = Math.abs(now.diff(timeUntil, 'minutes'));
+
+      let timeWannda = moment.utc(wanndaString, 'HH:mm');
+      let minutesDone = Math.abs(timeWannda.diff(now, 'minutes'));
+      let progress = minutesDone / minutesLeft;
+
+      return progress;
     }
   },
   mounted() {
