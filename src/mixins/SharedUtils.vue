@@ -37,7 +37,6 @@ export default {
     },
 
     progressPercent: function () {
-
       return (Math.round(this.progress * 100)) + '%';
     },
   },
@@ -168,10 +167,12 @@ export default {
     calculateRelativeTimeFromNow: function (wanndaString, thresholdInMinutes, breakString) {
       let timeUntil = this.calculateTimeUntil(wanndaString, thresholdInMinutes, breakString);
       let now = this.jetzt;
-      let minutes = Math.abs(now.diff(timeUntil, 'minutes'));
+     let minutes = Math.abs(now.diff(timeUntil, 'minutes'));
       let hours = Math.floor(minutes / 60);
       let leftoverMinutes = minutes - (hours * 60);
-      return hours + ':' + leftoverMinutes.pad(2);
+      let prefix = isOverHours ? '' : '-';
+      let prefix = isOverHours ? 'noch ' : '+ ';
+      return prefix + hours + ':' + leftoverMinutes.pad(2);
     },
 
     calculateTimeUntil: function (wanndaString, thresholdInMinutes, breakString) {

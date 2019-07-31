@@ -3,7 +3,7 @@
   <div class="values">
     <span class="threshold">{{ this.threshold }}h</span>
     <span class="absoluteTime">{{ absoluteTime }}</span>
-    <span class="relativeTime">noch {{ relativeTime }}</span>
+    <span class="relativeTime"> {{ relativeTime }}</span>
   </div>
   <div class="progressBar" v-if="showProgress">
 
