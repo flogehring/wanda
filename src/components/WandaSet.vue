@@ -63,7 +63,7 @@ export default {
     return {
       wannda: this.wanndaProp,
       wielangweg: this.wielangwegProp,
-      now: moment(),
+      now: new moment(),
     };
   },
 

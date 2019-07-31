@@ -1,4 +1,5 @@
-<template></template>
+<template>
+</template>
 
 <script>
 import moment from "moment";
@@ -41,7 +42,7 @@ export default {
     },
   },
   methods: {
-    uuidv4: function() {
+    uuidv4: function () {
       return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
         (
           c ^
@@ -49,7 +50,7 @@ export default {
         ).toString(16)
       );
     },
-      uuidv5: function() {
+    uuidv5: function () {
       return 'blaaaav5';
     },
     formatRelativeDate(type, inputDate) {
@@ -89,11 +90,11 @@ export default {
 
       return days + " days ";
     },
-    formattedDate: function(date) {
+    formattedDate: function (date) {
       return moment(date, "YYYY-MM-DD").format("LL");
     },
 
-    relativeDateWeeks: function(inputDate) {
+    relativeDateWeeks: function (inputDate) {
       const now = moment().startOf("day");
       const date = moment(inputDate).startOf("day");
       var duration;
@@ -111,7 +112,7 @@ export default {
       return weeks + " weeks " + daysString;
     },
 
-    relativeDateMonths: function(inputDate) {
+    relativeDateMonths: function (inputDate) {
       let now = moment().startOf("day");
       let date = moment(inputDate).startOf("day");
       var duration;
@@ -129,7 +130,7 @@ export default {
       return months + " months " + daysString;
     },
 
-    relativeDateFull: function(inputDate) {
+    relativeDateFull: function (inputDate) {
       const now = moment().startOf("day");
       const date = moment(inputDate).startOf("day");
       var duration;
@@ -153,7 +154,7 @@ export default {
       return years + " years " + monthsString + daysString;
     },
 
-    relativeDateRounded: function(inputDate) {
+    relativeDateRounded: function (inputDate) {
       return moment(inputDate)
         .startOf("Day")
         .fromNow();
@@ -163,22 +164,21 @@ export default {
       let timeUntil = this.calculateTimeUntil(wanndaString, thresholdInMinutes, breakString);
       return timeUntil.format('HH:mm');
     },
-
     calculateRelativeTimeFromNow: function (wanndaString, thresholdInMinutes, breakString) {
       let timeUntil = this.calculateTimeUntil(wanndaString, thresholdInMinutes, breakString);
       let now = this.jetzt;
-     let minutes = Math.abs(now.diff(timeUntil, 'minutes'));
+      let isOverHours = timeUntil.isBefore(now);
+      
+      let minutes = Math.abs(now.diff(timeUntil, 'minutes'));
       let hours = Math.floor(minutes / 60);
       let leftoverMinutes = minutes - (hours * 60);
-      let prefix = isOverHours ? '' : '-';
-      let prefix = isOverHours ? 'noch ' : '+ ';
+      let prefix = isOverHours ? '+ ' : 'noch ';
       return prefix + hours + ':' + leftoverMinutes.pad(2);
     },
-
     calculateTimeUntil: function (wanndaString, thresholdInMinutes, breakString) {
-      let timeWannda = moment.utc(wanndaString, 'HH:mm');
-      let timeBreak = moment.utc(breakString, 'HH:mm');
-      let timeUntil = timeWannda
+      let timeWannda = moment(wanndaString, 'HH:mm');
+      let timeBreak = moment(breakString, 'HH:mm');
+      const timeUntil = timeWannda
         .add(thresholdInMinutes, 'minutes')
         .add(timeBreak.hours(), 'hours')
         .add(timeBreak.minutes(), 'minutes');

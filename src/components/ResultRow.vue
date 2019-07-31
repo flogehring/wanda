@@ -31,7 +31,7 @@ export default {
   mixins: [SharedUtils],
   data: function () {
     return {
-      timeUntil: Object,
+      
     }
   },
   components: {
