@@ -1,5 +1,6 @@
 <template>
 <div class="disable-all">
+  <StatusBackground :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="7.7" :jetzt="this.now" class="main" :showProgress="true"/>
   <form>
     <div class="row">
       <label for="wannda">
@@ -17,7 +18,7 @@
   <div class="table-wrapper">
     <ul>
       <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="6.0" :jetzt="this.now"/>
-      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="7.7" :jetzt="this.now" class="main"/>
+      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="7.7" :jetzt="this.now" class="main" :showProgress="true"/>
       <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="8.0" :jetzt="this.now" />
       <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="9.0" :jetzt="this.now" />
       <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="10.0" :jetzt="this.now" />
@@ -35,8 +36,9 @@
 
 <script>
 import Store from "../store/index.js";
-import moment from "moment";
-import ResultRow from "./ResultRow.vue";
+import moment from 'moment';
+import ResultRow from './ResultRow';
+import StatusBackground from './StatusBackground';
 import {
   mapGetters
 } from "vuex";
@@ -86,7 +88,7 @@ export default {
     }
   },
   components: {
-    ResultRow
+    ResultRow, StatusBackground
   },
   computed: {},
   methods: {
@@ -135,17 +137,20 @@ body {
 
 
 form {
+  position: relative;
   margin: 0 auto;
   max-width: $container-max-width;
   
 }
 
 .table-wrapper {
+  position: relative;
   max-width: $container-max-width;
   width: 100%;
   margin: 0 auto;
 
   ul {
+    position: relative;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -154,6 +159,7 @@ form {
 }
 
 .row {
+  position: relative;
   font-size: 1.5em;
   text-align: left;
   margin: 1em;
@@ -171,6 +177,7 @@ form {
 }
 
 .presets {
+  position: relative;
   margin-top: 4em;
   display: flex;
   flex-direction: column;

@@ -1,6 +1,7 @@
 <template>
 <div id='app'>
   <h1>Wanda</h1>
+  
   <router-view />
 
  
