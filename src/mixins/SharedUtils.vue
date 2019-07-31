@@ -187,13 +187,13 @@ export default {
     calculateProgress: function (wanndaString, thresholdInMinutes, breakString) {
 
       let timeUntil = this.calculateTimeUntil(wanndaString, thresholdInMinutes, breakString);
+      
+      let timeWannda = moment(wanndaString, 'HH:mm');
+      let minutesRequired = Math.abs(timeWannda.diff(timeUntil, 'minutes'));
+
       let now = this.jetzt;
-      let minutesLeft = Math.abs(now.diff(timeUntil, 'minutes'));
-
-      let timeWannda = moment.utc(wanndaString, 'HH:mm');
       let minutesDone = Math.abs(timeWannda.diff(now, 'minutes'));
-      let progress = minutesDone / minutesLeft;
-
+      let progress = minutesDone / minutesRequired;
       return progress;
     }
   },

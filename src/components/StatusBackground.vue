@@ -45,7 +45,6 @@ export default {
       } else {
         return '100vh';
       }
-      
     }
   },
   methods: {
