@@ -2,7 +2,7 @@
 <div class="wrapper">
   <div class="progressBar" v-if="showProgress">
     <div class="progress" :style="{height: progressHeight }"></div>
-    <svg viewBox="0 342 1366 283">
+    <svg viewBox="0 342 1366 283" style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.4)); ">
     
       <!-- SVGs are "overflow: visible" by default.
            If we make this path extend vertically a long way, it will fill to the
@@ -80,6 +80,8 @@ export default {
       background: #76c9f5;
       display: block;
       position: relative;
+      
+
     }
     #wave {fill: #76c9f5;}
   }

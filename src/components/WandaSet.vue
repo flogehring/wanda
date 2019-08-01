@@ -6,9 +6,12 @@
   <h1>Wanda</h1>
     <div class="row">
       <label for="wannda">
-        Wann da?
+        Wann da? 
         <input type="text" id="wannda" :value="wannda" @input="wanndaUpdated" @focus="selectAll"/>
       </label>
+      <div class="buttonWrapper">
+        <a @click="setTimeToNow" href="#" class="setToNowLink">Jetzt</a>
+      </div>
     </div>
     <div class="row">
       <label for="wielangweg">
@@ -93,13 +96,13 @@ export default {
   },
   computed: {},
   methods: {
-    wanndaUpdated: function (context) {
-      let value = context.target.value;
+    wanndaUpdated: function () {
+      let value = document.querySelector('#wannda').value;
       this.wannda = value;
       this.persist();
     },
-    breakUpdated: function (context) {
-      let value = context.target.value;
+    breakUpdated: function () {
+      let value = document.querySelector('#wielangweg').value;
       this.wielangweg = value;
       this.persist();
     },
@@ -117,6 +120,16 @@ export default {
       // https://michaelnthiessen.com/force-re-render
       this.now = moment();
 
+    },
+
+    setTimeToNow: function(context) {
+      let wannda = document.querySelector('#wannda');
+      let minutes = this.now.minutes().pad(2);
+      let hour = this.now.hour().pad(2);
+
+      wannda.value = hour+':'+minutes;
+      this.wanndaUpdated();
+      
     }
   
   }
@@ -175,6 +188,23 @@ form {
     width: 100%;
   }
  
+}
+.buttonWrapper {
+  text-align: center;
+  margin: .5em 0;
+}
+.setToNowLink {
+      font-size: 0.7em;
+    text-align: center;
+    display: inline-block;
+    background: #fff;
+    color: #666;
+    font-weight: bold;
+    margin: 0 auto;
+    padding: 0.3em 0.7em;
+    border-radius: 0.6em;
+    text-decoration: none;
+    box-shadow: 0 2px 3px 0px #0000004f;
 }
 
 .presets {
