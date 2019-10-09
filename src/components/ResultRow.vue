@@ -1,57 +1,47 @@
 <template>
-<li class="result-row row">
-  <div class="values">
-    <span class="threshold">{{ this.threshold }}h</span>
-    <span class="absoluteTime">{{ absoluteTime }}</span>
-    <span class="relativeTime"> {{ relativeTime }}</span>
-  </div>
-  <div class="progressBar" v-if="showProgress">
-
-    <div class="progress" :style="{width: progress * 100 +'%' }"></div>
-    <span>{{ progressPercent }}</span>
-  </div>
-</li>
+  <li class="result-row row">
+    <div class="values">
+      <span class="threshold">{{ this.threshold }}h</span>
+      <span class="absoluteTime">{{ absoluteTime }}</span>
+      <span class="relativeTime">{{ relativeTime }}</span>
+    </div>
+    <div class="progressBar" v-if="showProgress">
+      <div class="progress" :style="{width: progress * 100 +'%' }"></div>
+      <span>{{ progressPercent }}</span>
+    </div>
+  </li>
 </template>
 
 <script>
 import moment from "moment";
-import SharedUtils from '../mixins/SharedUtils';
+import SharedUtils from "../mixins/SharedUtils";
 
 export default {
-
   props: {
     wannda: String,
     wielangweg: String,
     threshold: Number,
     jetzt: Object,
-    showProgress: Boolean,
-
+    showProgress: Boolean
   },
 
   mixins: [SharedUtils],
-  data: function () {
-    return {
-      
-    }
+  data: function() {
+    return {};
   },
-  components: {
-
-  },
-  computed: {
-
-  },
-  methods: {
-  },
-}
+  components: {},
+  computed: {},
+  methods: {}
+};
 </script>
 
 <style lang="scss">
 .result-row {
-
   background: #ffffff94;
   border-radius: 3px;
   border: 1px solid #bbbbbb;
   overflow: hidden;
+  box-shadow: 0 2px 6px 0px rgba(0, 0, 0, 0.3);
 
   &.main {
     background: #fff;
@@ -82,7 +72,7 @@ export default {
 
     .relativeTime {
       text-align: right;
-      font-size: .8em;
+      font-size: 0.8em;
       color: #aaa;
     }
   }
@@ -92,11 +82,11 @@ export default {
     color: #2d3e50;
     text-align: center;
     height: 1em;
-    font-size: .3em;
-    transition: all .2s ease-in-out;
+    font-size: 0.3em;
+    transition: all 0.2s ease-in-out;
 
     .progress {
-      content: '';
+      content: "";
       height: 1em;
       background: #76c9f5;
       display: block;
@@ -114,7 +104,6 @@ export default {
       line-height: 1em;
       opacity: 0;
     }
-
   }
 
   &:hover {

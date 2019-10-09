@@ -22,11 +22,11 @@
   </form>
   <div class="table-wrapper">
     <ul>
-      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="6.0" :jetzt="this.now"/>
-      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="7.7" :jetzt="this.now" class="main" :showProgress="true"/>
-      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="8.0" :jetzt="this.now" />
-      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="9.0" :jetzt="this.now" />
-      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="10.0" :jetzt="this.now" />
+      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="6.0" :jetzt="this.now"  :showProgress="true"/>
+      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="7.7" :jetzt="this.now"   :showProgress="true"/>
+      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="8.0" :jetzt="this.now"  class="main"  :showProgress="true"/>
+      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="9.0" :jetzt="this.now"  :showProgress="true"/>
+      <ResultRow :wannda="this.wannda" :wielangweg="this.wielangweg" :threshold="10.0" :jetzt="this.now"  :showProgress="true"/>
     </ul>
   </div>
 
