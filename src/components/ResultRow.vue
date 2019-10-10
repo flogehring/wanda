@@ -1,5 +1,5 @@
 <template>
-  <li class="result-row row">
+  <li class="result-row row" v-on:click="rowClicked">
     <div class="values">
       <span class="threshold">{{ this.threshold }}h</span>
       <span class="absoluteTime">{{ absoluteTime }}</span>
@@ -31,7 +31,13 @@ export default {
   },
   components: {},
   computed: {},
-  methods: {}
+  methods: {
+    rowClicked(e) {
+      document.querySelector(".row.main").classList.remove("main");
+      var row = e.target.closest(".row");
+      row.classList.add("main");
+    }
+  }
 };
 </script>
 
@@ -42,6 +48,7 @@ export default {
   border: 1px solid #bbbbbb;
   overflow: hidden;
   box-shadow: 0 2px 6px 0px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 
   &.main {
     background: #fff;
@@ -106,7 +113,8 @@ export default {
     }
   }
 
-  &:hover {
+  &:hover,
+  &.main {
     .progressBar {
       font-size: 1em;
 
